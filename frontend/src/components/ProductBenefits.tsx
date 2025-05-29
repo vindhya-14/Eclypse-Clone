@@ -9,12 +9,15 @@ const ProductBenefits = () => {
   const [accordionData, setAccordionData] = useState<AccordionItem[]>([]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  // Use the Vite environment variable for the API base URL
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   useEffect(() => {
-    fetch("http://localhost:5000/api/accordion")
+    fetch(`${API_BASE_URL}/api/accordion`)
       .then((res) => res.json())
       .then((data) => setAccordionData(data))
       .catch((err) => console.error("Failed to fetch accordion data", err));
-  }, []);
+  }, [API_BASE_URL]);
 
   const handleToggle = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
